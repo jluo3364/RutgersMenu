@@ -1,10 +1,17 @@
-import { StyleSheet, FlatList, Pressable, Text } from "react-native";
+import { View, StyleSheet, FlatList, Pressable, Text } from "react-native";
+import { useState } from "react";
+import { colors } from "../values/colors.js";
+import { numbers } from "../values/numbers.js";
 
-export default function SectionBar({ children, selectedSection }) {
-  const item = ({ item, onPress }) => {
+export default function SectionBar({ children, selectedSection, row }) {
+  const Item = ({ item, onPress }) => {
+    const color = item === selectedItem ? colors.lightest : colors.darkgray;
+    const textsize = row === 1 ? numbers.textlg : numbers.textmd;
     return (
       <Pressable onPress={onPress}>
-        <Text style={styles.item}>{item}</Text>
+        <Text style={[styles.item, { color: color }, { fontSize: textsize }]}>
+          {item}
+        </Text>
       </Pressable>
     );
   };
@@ -12,39 +19,30 @@ export default function SectionBar({ children, selectedSection }) {
   const [selectedItem, setSelectedItem] = useState(selectedSection);
 
   const renderItem = ({ item }) => {
-    const color = item === selectedItem ? "#EBEBEF" : "#A9A9BC";
-
     return <Item item={item} onPress={() => setSelectedItem(item)} />;
   };
 
   return (
-    <View style={style.listContainer}>
-      {
-        <FlatList
-          data={children}
-          renderItem={renderItem}
-          keyExtractor={(item) => item}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-        />
-      }
-    </View>
+    <FlatList
+      data={children}
+      renderItem={renderItem}
+      keyExtractor={(item) => item}
+      horizontal={true}
+      showsHorizontalScrollIndicator={true}
+      contentContainerStyle={styles.rowContainer}
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  listContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    alignSelf: "stretch",
+  rowContainer: {
+    flex: 1,
+    flexDirection: "row",
+    gap: 15,
+    overflow: "scroll",
   },
   item: {
-    color: "#A9A9BC",
-    fontSize: "12px",
-    fontFamily: "Inter",
-    fontWeight: 400,
-    lineHeight: "16px",
-    wordWrap: "break-word",
+    fontSize: numbers.textmd,
+    flexWrap: "wrap",
   },
 });
