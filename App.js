@@ -1,23 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StrictMode } from "react";
+import { StrictMode, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import OptionsBar from "./components/OptionsBar";
 import { colors } from "./values/colors.js";
 import ItemRow from "./components/ItemRow.js";
-import Card from "./components/Card.js";
 import Cards from "./components/Cards.js";
 
 export default function App() {
-  const currentMeal = () => {
-    const hour = new Date().getHours();
-    if (hour < 11) {
-      return "Breakfast";
-    } else if (hour <= 11 || hour < 16) {
-      return "Lunch";
-    } else {
-      return "Dinner";
-    }
-  };
   let defaultLocation = "Busch";
   const items = [
     { name: "chicken" },
@@ -25,12 +14,10 @@ export default function App() {
     { name: "steak" },
     { name: "tofu" },
   ];
+
   return (
     <StrictMode>
       <View style={styles.container}>
-        <View style={styles.optionsContainer}>
-          <OptionsBar />
-        </View>
         <View style={styles.cardsContainer}>
           <Cards
             sections={[
@@ -55,6 +42,9 @@ export default function App() {
             ]}
           />
         </View>
+        <View style={styles.optionsContainer}>
+          <OptionsBar />
+        </View>
         <StatusBar style="auto" />
       </View>
     </StrictMode>
@@ -68,18 +58,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
-  },
-  optionsContainer: {
-    width: 360,
-    height: 160,
+    rowGap: 15,
   },
   cardsContainer: {
-    width: 360,
-    paddingVertical: 15,
-    gap: 15,
-    flexDirection: "column",
-    alignItems: "center",
+    width: 380,
+    flex: 7,
+    paddingTop: 30,
     justifyContent: "flex-start",
-    overflow: "scroll",
+  },
+  optionsContainer: {
+    width: 380,
+    flex: 1,
+    alignContent: "flex-end",
   },
 });

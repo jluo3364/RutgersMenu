@@ -4,9 +4,11 @@ import { colors } from "../values/colors.js";
 import { numbers } from "../values/numbers.js";
 
 export default function SectionBar({ children, selectedSection, row }) {
+  const location = row === "locations";
   const Item = ({ item, onPress }) => {
     const color = item === selectedItem ? colors.lightest : colors.darkgray;
-    const textsize = row === 1 ? numbers.textlg : numbers.textmd;
+
+    const textsize = location ? numbers.textlg : numbers.textmd;
     return (
       <Pressable onPress={onPress}>
         <Text style={[styles.item, { color: color }, { fontSize: textsize }]}>
@@ -28,21 +30,24 @@ export default function SectionBar({ children, selectedSection, row }) {
       renderItem={renderItem}
       keyExtractor={(item) => item}
       horizontal={true}
-      showsHorizontalScrollIndicator={true}
-      contentContainerStyle={styles.rowContainer}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={
+        location ? styles.locationBar : styles.rowContainer
+      }
     />
   );
 }
 
 const styles = StyleSheet.create({
-  rowContainer: {
-    flex: 1,
-    flexDirection: "row",
-    gap: 15,
-    overflow: "scroll",
-  },
+  rowContainer: {},
   item: {
     fontSize: numbers.textmd,
     flexWrap: "wrap",
+    marginHorizontal: 10,
+  },
+  locationBar: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
