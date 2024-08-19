@@ -1,12 +1,16 @@
 # Welcome to RU Dish 👋
 
-This application provides a modern interface for browsing the Rutgers dining hall menus. Right now, a prototype of the front end is almost complete. 
+This application provides a modern interface for browsing the Rutgers dining hall menus. As of Aug. 18, 2024, a prototype of the front end is almost complete. 
 
 Technologies used include React Native and the [Expo framework](https://expo.dev).
 
-# Instructions for Development
-## Get started
+The UI design (made in Figma): 
 
+<img src="https://github.com/user-attachments/assets/b5fb2aff-61ce-4d43-96b5-a51b3a94f447" alt="menu page" width="400">
+
+
+
+## Development Instructions
 1. Install dependencies
 
    ```bash
